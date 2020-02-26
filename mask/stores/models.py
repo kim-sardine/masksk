@@ -21,4 +21,4 @@ class Store(TimeStampedModel):
     recent_in_stock_date = models.DateTimeField("최근 재고들어온 시간", blank=True, null=True)
 
     def __str__(self):
-        return product_title
+        return f"{self.product_title}"
