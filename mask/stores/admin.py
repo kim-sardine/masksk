@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from mask.stores.models import Store
+
+@admin.register(Store)
+class StoreAdmin(admin.ModelAdmin):
+    list_display = ("product_title", "crawling_type", "now_in_stock", "recent_in_stock_date", "modified_at", )
