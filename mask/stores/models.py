@@ -14,7 +14,7 @@ class Store(TimeStampedModel):
 
     price = models.DecimalField("낱개당 평균 가격", max_digits=13, decimal_places=3)
 
-    crawling_type = models.CharField("크롤링 유형(id)", max_length=50)
+    crawling_type = models.CharField("크롤링 유형", max_length=50)
 
     is_visible = models.BooleanField("페이지 공개 여부", default=False)
 
