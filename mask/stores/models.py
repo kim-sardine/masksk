@@ -16,6 +16,8 @@ class Store(TimeStampedModel):
 
     crawling_type = models.CharField("크롤링 유형(id)", max_length=50)
 
+    is_visible = models.BooleanField("페이지 공개 여부", default=False)
+
     # 크롤링
     now_in_stock = models.BooleanField("현재 재고 있는지", default=False)
     recent_in_stock_date = models.DateTimeField("최근 재고들어온 시간", blank=True, null=True)
