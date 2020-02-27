@@ -1,9 +1,13 @@
+import logging
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 
-from mask.stores.crawler import run
+from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
+
+logger = logging.getLogger(__name__)
 
 
 def dummy_view(request):
@@ -11,19 +15,22 @@ def dummy_view(request):
     특정 시간마다(1분?) 실행 예정.
     모든 상품들의 재고 여부를 확인한다.
     """
+    succeed = 0
+    failed = 0
+
     for store in Store.objects.all():
         try:
-            now_in_stock = run(store)
+            is_available = is_mask_available(store)
+            print(f'{store} - {is_available}')
         except Exception as e:
-            # TODO: 크롤링 실패 -> Error logging or DB writing
-            print(store)
-            print(e)
+            failed += 1
+            # logger.exception(f'[Crawling] : {store}')
+            store.now_in_stock = False
         else:
-            store.now_in_stock = now_in_stock
-            print(now_in_stock)
-            if now_in_stock is True:
+            succeed += 1
+            store.now_in_stock = is_available
+            if is_available is True:
                 store.recent_in_stock_date = timezone.now()
-                print(store.recent_in_stock_date)
-            store.save()
+        store.save()
 
-    return HttpResponse('done')
+    return HttpResponse(f'{succeed + failed} / {succeed} / {failed}')

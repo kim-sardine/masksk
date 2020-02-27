@@ -3,28 +3,31 @@ import requests
 
 HEADER = {'User-Agent': 'Mozilla/5.0'}
 
-def naver_smart_store_1(url):
+def _get_soup(url):
     response = requests.get(url, headers=HEADER)
-    bs = BeautifulSoup(response.text, "html.parser")
-    out_of_order = bs.find('div', class_='not_goods')
-    print(out_of_order)
+    return BeautifulSoup(response.text, "html.parser")
 
-def welkeepsmall_1(url):
-    response = requests.get(url, headers=HEADER)
-    bs = BeautifulSoup(response.text, "html.parser")
-    out_of_order = bs.find('div', class_='soldout')
-    print(out_of_order)
+def naver_smart_store_1(soup):
+    out_of_order = soup.find('div', class_='not_goods')
+    if out_of_order:
+        return False
+    return True
 
+def welkeepsmall_1(soup):
+    out_of_order = soup.find('div', class_='soldout')
+    if out_of_order:
+        return False
+    return True
 
-def run(store):
-    """
-    Crawl store
+def kakao_store_1(soup):
+    bottom_button = soup.find('div', class_='_bottom_buttons wrap_btn_detail')
+    bottom_text = bottom_button.text.strip()
+    if bottom_text == '품절':
+        return False
+    return True
 
-    go to product_url and get information
-    """
-    url = store.product_url
-    crawling_type = store.crawling_type
-    method_to_call = globals().get(crawling_type)    
-    now_in_stock = method_to_call(url)
-    
-    return now_in_stock
+def is_mask_available(store):
+    parser_fn = globals()[store.crawling_type]  # execption raised if parser not exists
+    soup = _get_soup(store.product_url)
+
+    return parser_fn(soup)
