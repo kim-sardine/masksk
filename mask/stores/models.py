@@ -35,3 +35,45 @@ class Store(TimeStampedModel):
 
     def __str__(self):
         return self.product_title
+
+    @property
+    def card_class(self):
+        if self.now_in_stock:
+            return 'my-card-now-in-stock'
+        return 'my-card-not-in-stock'
+
+    @property
+    def alert_class(self):
+        if self.now_in_stock:
+            return 'my-alert-now-in-stock'
+        return 'my-alert-not-in-stock'
+
+    @property
+    def now_in_stock_display(self):
+        if self.now_in_stock:
+            return '구매 가능'
+        return '구매 불가'
+
+    @property
+    def mask_type_badge_class(self):
+        mask_type = self.mask_type
+        if mask_type == 'N95' :
+            return 'badge-primary'
+        elif mask_type.startswith('KF'):
+            return 'badge-success'
+        elif mask_type in ['면', '천']:
+            return 'badge-info'
+        else:
+            return 'badge-secondary'
+
+    @property
+    def price_badge_class(self):
+        price = self.price
+        if price > 3000 :
+            return 'badge-danger'
+        elif price > 2000:
+            return 'badge-warning'
+        elif price > 1000:
+            return 'badge-success'
+        else:
+            return 'badge-primary'

@@ -5,21 +5,21 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from mask.stores.views import main_view
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", main_view, name="home"),
+    path(settings.ADMIN_URL, admin.site.urls),
+
+    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
 
-    path(settings.ADMIN_URL, admin.site.urls),
-
     path("stores/", include("mask.stores.urls")),
 
-    # User management
-    path("users/", include("mask.users.urls", namespace="users")),
-    path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    # path("users/", include("mask.users.urls", namespace="users")),
+    # path("accounts/", include("allauth.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-lg-8 mx-auto my-4">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">안내사항</h4>
+        <p>안내 문구를 적자</p>
+        <hr>
+        <p class="mb-0">안내문구 안내문구</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</div>
+
+<div class="col-lg-8 mx-auto my-4">
+    <div class="bg-white rounded box-shadow">
+        {% for store in stores %}
+            {% include "stores/include/store_list_each.html" with store=store %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

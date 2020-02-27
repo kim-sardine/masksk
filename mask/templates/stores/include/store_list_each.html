@@ -1,0 +1,35 @@
+{% load humanize %}
+
+<div class="card mb-3 {{store.card_class}}">
+    <div class="row no-gutters">
+        <div class="text-center w-100 p-2 {{store.alert_class}}">
+            {{store.now_in_stock_display}}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-4">
+            <div class="m-2">
+                <img src="{{store.image_url}}" class="my-card-img" alt="이미지">
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="my-card-body m-2">
+                <div class="my-card-text">
+                    <a href="{{store.product_url}}">{{store.product_title}}</a>
+                    <small class="text-muted"> - {{store.mall_title}}</small>
+                </div>
+                <div class="my-card-text">
+                    <span class="badge {{store.price_badge_class}}">개당 {{store.price|floatformat}}원</span>
+                    <span class="badge {{store.mask_type_badge_class}}">{{store.mask_type}}</span>
+                    <span class="badge badge-primary">사이즈: {{store.size}}</span>
+                </div>
+                <div class="my-card-text">
+                    마지막 업데이트 : {{store.modified_at|naturaltime}}
+                </div>
+                <div class="my-card-text">
+                    최근 구매 가능 시간 : {{store.recent_in_stock_date|naturaltime|default_if_none:"정보 없음"}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

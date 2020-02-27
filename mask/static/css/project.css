@@ -11,3 +11,36 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+.my-card-now-in-stock {
+  border: green solid 3px !important;
+}
+
+.my-card-not-in-stock {
+  border: red solid 3px !important;
+}
+
+.my-alert-now-in-stock {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.my-alert-not-in-stock {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.my-card-img {
+  width: 100%;
+  border: solid 1px #eed3d7;
+}
+
+.my-card-body {
+  flex: 1 1 auto;
+}
+
+.my-card-text {
+  font-size: 14px;
+}
