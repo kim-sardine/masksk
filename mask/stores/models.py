@@ -4,6 +4,15 @@ from mask.core.models import TimeStampedModel
 
 
 class Store(TimeStampedModel):
+    MASK_TYPE = [
+        ('N95', 'N95'),
+        ('KF99', 'KF99'),
+        ('KF94', 'KF94'),
+        ('KF80', 'KF80'),
+        ('면', '면'),
+        ('천', '천'),
+        ('기타', '기타'),
+    ]
 
     # 수작업
     product_title = models.CharField("상품명", max_length=300)
@@ -12,7 +21,9 @@ class Store(TimeStampedModel):
     product_url = models.URLField("상품 정보 URL", max_length=200)
     image_url = models.URLField("상품 이미지 URL", max_length=200, blank=True, null=True)
 
+    mask_type = models.CharField("마스크 종류", max_length=50, choices=MASK_TYPE, blank=True, null=True)
     price = models.DecimalField("낱개당 평균 가격", max_digits=13, decimal_places=3)
+    size = models.CharField("마스크 사이즈", max_length=50, blank=True, null=True)
 
     crawling_type = models.CharField("크롤링 유형", max_length=50)
 
@@ -23,4 +34,4 @@ class Store(TimeStampedModel):
     recent_in_stock_date = models.DateTimeField("최근 재고들어온 시간", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.product_title}"
+        return self.product_title
