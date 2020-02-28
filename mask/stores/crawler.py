@@ -27,6 +27,12 @@ def kakao_store_1(soup):
         return True
     return False
 
+def bling_market_1(soup):
+    buying_button = soup.find('div', class_='btn_wrap mt40')
+    if buying_button:
+        return True
+    return False
+
 
 
 # MAIN
