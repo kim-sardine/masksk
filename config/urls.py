@@ -9,6 +9,9 @@ from mask.stores.views import main_view
 
 urlpatterns = [
     path("", main_view, name="home"),
+    path("robots.txt", TemplateView.as_view(template_name="pages/robots.txt", content_type="text/plain"), name="robots"),
+    path("msk-sitemap/", TemplateView.as_view(template_name="pages/sitemap.xml", content_type="text/plain"), name="sitemap"),
+
     path(settings.ADMIN_URL, admin.site.urls),
 
     # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -16,7 +19,7 @@ urlpatterns = [
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
 
-    path("stores/", include("mask.stores.urls")),
+    # path("stores/", include("mask.stores.urls")),
 
     # path("users/", include("mask.users.urls", namespace="users")),
     # path("accounts/", include("allauth.urls")),
