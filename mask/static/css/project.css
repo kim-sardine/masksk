@@ -12,12 +12,22 @@
   border-color: #eed3d7;
 }
 
+.my-nav {
+  color: rgba(0,0,0,.9);
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
 .my-card-now-in-stock {
-  border: green solid 3px !important;
+  border: green solid 5px !important;
 }
 
 .my-card-not-in-stock {
-  border: red solid 3px !important;
+  border: red solid 5px !important;
 }
 
 .my-alert-now-in-stock {
