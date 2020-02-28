@@ -28,7 +28,9 @@
                         재고 기록 보기
                     </button>
                     <div>
-                        최근 재고 : {{store.recent_in_stock_date|default_if_none:"정보 없음"}}
+                        <small class="text-muted">
+                            최근 재고 : {{store.recent_in_stock_date|default_if_none:"정보 없음"}}
+                        </small>
                     </div>
                 </div>
                 <div class="my-card-text float-right">
