@@ -1,16 +1,14 @@
 
 {% if histories %}
-    <table class="table table-striped">
+    <table class="table table-sm table-striped text-center">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">구매 가능 시간</th>
+                <th scope="col">재고가 있었던 시간!</th>
             </tr>
         </thead>
         <tbody>
             {% for history in histories %}
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
                     <td>{{history.created_at}}</td>
                 </tr>
             {% endfor %}
