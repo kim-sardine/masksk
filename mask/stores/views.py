@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def main_view(request):
     context = {}
 
-    stores = Store.objects.filter(is_visible=True)
+    stores = Store.objects.prefetch_related('stock_histories').filter(is_visible=True)
     context['stores'] = stores
 
     return render(request, 'stores/main.html', context)
