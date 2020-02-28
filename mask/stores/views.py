@@ -3,21 +3,18 @@ import logging
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
-from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
 
 logger = logging.getLogger(__name__)
 
+@cache_page(60)
 def main_view(request):
     context = {}
 
-    stores = cache.get('stores')
-    if not stores:
-        stores = list(Store.objects.filter(is_visible=True))
-        cache.set('stores', stores, 60) # cached for 60 seconds
-
+    stores = Store.objects.filter(is_visible=True)
     context['stores'] = stores
 
     return render(request, 'stores/main.html', context)
