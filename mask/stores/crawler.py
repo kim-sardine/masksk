@@ -26,6 +26,9 @@ def kakao_store_1(soup):
         return False
     return True
 
+
+
+# MAIN
 def is_mask_available(store):
     parser_fn = globals()[store.crawling_type]  # execption raised if parser not exists
     soup = _get_soup(store.product_url)

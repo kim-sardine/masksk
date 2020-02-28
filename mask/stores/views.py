@@ -3,6 +3,7 @@ import logging
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
+from django.core.cache import cache
 
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
@@ -12,7 +13,11 @@ logger = logging.getLogger(__name__)
 def main_view(request):
     context = {}
 
-    stores = Store.objects.filter(is_visible=True)
+    stores = cache.get('stores')
+    if not stores:
+        stores = list(Store.objects.filter(is_visible=True))
+        cache.set('stores', stores, 60) # cached for 60 seconds
+
     context['stores'] = stores
 
     return render(request, 'stores/main.html', context)
@@ -31,7 +36,7 @@ def dummy_view(request):
             print(f'{store} - {is_available}')
         except Exception as e:
             failed += 1
-            # logger.exception(f'[Crawling] : {store}')
+            logger.exception(f'[Crawling] : {store}')
             store.now_in_stock = False
         else:
             succeed += 1
