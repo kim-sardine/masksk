@@ -19,8 +19,8 @@ class StoreFactory(DjangoModelFactory):
 
     is_visible = True
 
-    now_in_stock = True
-    recent_in_stock_date = Faker("date_time_between", start_date='-3d', end_date='now', tzinfo=timezone.utc)
+    now_in_stock = False
+    recent_in_stock_date = None
 
     class Meta:
         model = Store
