@@ -14,7 +14,7 @@ urlpatterns = [
 
     path(settings.ADMIN_URL, admin.site.urls),
 
-    path("stores/", include("mask.stores.urls")),
+    # path("stores/", include("mask.stores.urls")),
 
     # path(
     #     "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
