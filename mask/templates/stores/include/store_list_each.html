@@ -9,7 +9,7 @@
     <div class="row no-gutters">
         <div class="col-4">
             <div class="m-2">
-                <img src="{{store.image_url}}" class="my-card-img" alt="이미지">
+                <img src="{{store.image_url|default_if_none:"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}}" class="my-card-img" alt="이미지">
             </div>
         </div>
         <div class="col-8">
@@ -23,11 +23,13 @@
                     <span class="badge {{store.mask_type_badge_class}}">{{store.mask_type|default_if_none:""}}</span>
                     <span class="badge badge-primary">사이즈: {{store.size|default_if_none:"정보 없음"}}</span>
                 </div>
-                <div class="my-card-text my-2">
+                <div class="my-card-text">
                     <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#store_{{store.id}}">
                         재고 기록 보기
                     </button>
-                    {% comment %} 재고 기록 보기 : {{store.recent_in_stock_date|default_if_none:"정보 없음"}} {% endcomment %}
+                    <div>
+                        최근 재고 : {{store.recent_in_stock_date|default_if_none:"정보 없음"}}
+                    </div>
                 </div>
                 <div class="my-card-text float-right">
                     업데이트 : {{store.modified_at|naturaltime}}

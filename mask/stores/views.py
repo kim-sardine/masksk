@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
+from django.db.models import F  
 
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
@@ -14,7 +15,11 @@ logger = logging.getLogger(__name__)
 def main_view(request):
     context = {}
 
-    stores = Store.objects.prefetch_related('stock_histories').filter(is_visible=True)
+    stores = Store.objects.prefetch_related('stock_histories').filter(is_visible=True) \
+        .order_by(
+            '-now_in_stock', 
+            F('recent_in_stock_date').desc(nulls_last=True)
+        )
     context['stores'] = stores
 
     return render(request, 'stores/main.html', context)
