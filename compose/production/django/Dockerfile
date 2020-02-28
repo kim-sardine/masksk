@@ -50,4 +50,6 @@ USER django
 
 WORKDIR /app
 
+RUN mkdir logs
+
 ENTRYPOINT ["/entrypoint"]

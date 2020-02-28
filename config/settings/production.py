@@ -171,13 +171,21 @@ LOGGING = {
         }
     },
     "handlers": {
+        "logfile" : {
+            'level' : 'INFO',
+            'class' : 'logging.handlers.RotatingFileHandler',
+            'filename' : os.path.join(ROOT_DIR, 'logs', 'file.log'),
+            'maxBytes' : 1024*1024*10, # 10MB
+            'backupCount' : 5,
+            'formatter' : 'verbose',
+        },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         }
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    "root": {"level": "INFO", "handlers": ["console", "logfile"]},
     "loggers": {
         "django.db.backends": {
             "level": "ERROR",
