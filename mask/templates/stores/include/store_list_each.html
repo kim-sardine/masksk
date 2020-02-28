@@ -53,7 +53,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div>
+                    <small class="text-muted">
+                        재고 추적 시작 : {{store.created_at}}
+                    </small>
+                </div>
+
                 {% include "stores/include/stock_history_table.html" with histories=store.stock_histories.all %}
+
             </div>
         </div>
     </div>
