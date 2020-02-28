@@ -1,16 +1,19 @@
 from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
+from django.contrib.staticfiles.templatetags.staticfiles import static as static_file
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 from django.views import defaults as default_views
 
 from mask.stores.views import main_view
 
 urlpatterns = [
     path("", main_view, name="home"),
-    path("robots.txt", TemplateView.as_view(template_name="pages/robots.txt", content_type="text/plain"), name="robots"),
+    path("robots.txt/", TemplateView.as_view(template_name="pages/robots.txt", content_type="text/plain"), name="robots"),
     path("msk-sitemap/", TemplateView.as_view(template_name="pages/sitemap.xml", content_type="text/plain"), name="sitemap"),
+    path("favicon.ico/", RedirectView.as_view(url=static_file('images/favicons/mask_emoji.png'), permanent=True)),
 
     path(settings.ADMIN_URL, admin.site.urls),
 
