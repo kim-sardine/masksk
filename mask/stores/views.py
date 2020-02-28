@@ -27,7 +27,8 @@ def dummy_view(request):
     succeed = 0
     failed = 0
 
-    for store in Store.objects.all():
+    for store in Store.objects.filter(is_visible=True):
+        is_available = False
         try:
             is_available = is_mask_available(store)
             print(f'{store} - {is_available}')

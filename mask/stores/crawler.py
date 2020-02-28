@@ -4,17 +4,18 @@ import requests
 HEADER = {'User-Agent': 'Mozilla/5.0'}
 
 def _get_soup(url):
-    response = requests.get(url, headers=HEADER)
+    response = requests.get(url, headers=HEADER, timeout=3)
     return BeautifulSoup(response.text, "html.parser")
 
 def naver_smart_store_1(soup):
-    out_of_order = soup.find('div', class_='not_goods')
-    if out_of_order:
-        return False
-    return True
+    is_available = soup.find('div', class_='sum_total')
+    if is_available:
+        return True
+    return False
 
 def welkeepsmall_1(soup):
     out_of_order = soup.find('div', class_='soldout')
+    print(out_of_order)
     if out_of_order:
         return False
     return True
@@ -22,15 +23,15 @@ def welkeepsmall_1(soup):
 def kakao_store_1(soup):
     bottom_button = soup.find('div', class_='_bottom_buttons wrap_btn_detail')
     bottom_text = bottom_button.text.strip()
-    if bottom_text == '품절':
-        return False
-    return True
+    if bottom_text == '구매하기':
+        return True
+    return False
 
 
 
 # MAIN
 def is_mask_available(store):
-    parser_fn = globals()[store.crawling_type]  # execption raised if parser not exists
     soup = _get_soup(store.product_url)
+    parser_fn = globals()[store.crawling_type]  # execption raised if parser not exists
 
     return parser_fn(soup)

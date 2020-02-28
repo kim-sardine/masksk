@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @celery_app.task()
 def update_mask_stock_for_all_store():
 
-    for store in Store.objects.all():
+    for store in Store.objects.filter(is_visible=True):
         update_mask_stock.delay(store.id)
 
     return 'Go Sardine'
@@ -21,6 +21,8 @@ def update_mask_stock_for_all_store():
 @celery_app.task()
 def update_mask_stock(store_id):
     store = Store.objects.get(id=store_id)
+
+    is_available = False
     try:
         is_available = is_mask_available(store)
     except Exception as e:
