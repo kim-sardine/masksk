@@ -51,8 +51,8 @@ class Store(TimeStampedModel):
     @property
     def now_in_stock_display(self):
         if self.now_in_stock:
-            return '구매 가능'
-        return '구매 불가'
+            return '재고 있음'
+        return '재고 없음'
 
     @property
     def mask_type_badge_class(self):

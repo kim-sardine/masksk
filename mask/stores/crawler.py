@@ -4,7 +4,7 @@ import requests
 HEADER = {'User-Agent': 'Mozilla/5.0'}
 
 def _get_soup(url):
-    response = requests.get(url, headers=HEADER, timeout=3)
+    response = requests.get(url, headers=HEADER, timeout=5)
     return BeautifulSoup(response.text, "html.parser")
 
 def naver_smart_store_1(soup):
