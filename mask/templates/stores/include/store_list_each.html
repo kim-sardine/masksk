@@ -20,15 +20,35 @@
                 </div>
                 <div class="my-card-text">
                     <span class="badge {{store.price_badge_class}}">개당 {{store.price|floatformat}}원</span>
-                    <span class="badge {{store.mask_type_badge_class}}">{{store.mask_type}}</span>
-                    <span class="badge badge-primary">사이즈: {{store.size}}</span>
+                    <span class="badge {{store.mask_type_badge_class}}">{{store.mask_type|default_if_none:""}}</span>
+                    <span class="badge badge-primary">사이즈: {{store.size|default_if_none:"정보 없음"}}</span>
                 </div>
-                <div class="my-card-text">
-                    마지막 업데이트 : {{store.modified_at|naturaltime}}
+                <div class="my-card-text my-2">
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#store_{{store.id}}">
+                        재고 기록 보기
+                    </button>
+                    {% comment %} 재고 기록 보기 : {{store.recent_in_stock_date|default_if_none:"정보 없음"}} {% endcomment %}
                 </div>
-                <div class="my-card-text">
-                    최근 구매 가능 시간 : {{store.recent_in_stock_date|naturaltime|default_if_none:"정보 없음"}}
+                <div class="my-card-text float-right">
+                    업데이트 : {{store.modified_at|naturaltime}}
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="store_{{store.id}}" tabindex="-1" role="dialog" aria-labelledby="store_{{store.id}}_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="store_{{store.id}}_title">재고 기록 : {{store.product_title}}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% include "stores/include/stock_history_table.html" with histories=store.stock_histories.all %}
             </div>
         </div>
     </div>

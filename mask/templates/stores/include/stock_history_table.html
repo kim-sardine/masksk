@@ -1,0 +1,21 @@
+
+{% if histories %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">구매 가능 시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in histories %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{history.created_at}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    기록 없음
+{% endif %}

@@ -57,23 +57,34 @@ class Store(TimeStampedModel):
     @property
     def mask_type_badge_class(self):
         mask_type = self.mask_type
-        if mask_type == 'N95' :
-            return 'badge-primary'
-        elif mask_type.startswith('KF'):
-            return 'badge-success'
-        elif mask_type in ['면', '천']:
-            return 'badge-info'
-        else:
-            return 'badge-secondary'
+        if mask_type:
+            if mask_type == 'N95' :
+                return 'badge-primary'
+            elif mask_type.startswith('KF'):
+                return 'badge-success'
+            elif mask_type in ['면', '천']:
+                return 'badge-info'
+        return 'badge-secondary'
 
     @property
     def price_badge_class(self):
         price = self.price
-        if price > 3000 :
-            return 'badge-danger'
-        elif price > 2000:
-            return 'badge-warning'
-        elif price > 1000:
-            return 'badge-success'
-        else:
-            return 'badge-primary'
+        if price:
+            if price > 3000 :
+                return 'badge-danger'
+            elif price > 2000:
+                return 'badge-warning'
+            elif price > 1000:
+                return 'badge-success'
+        return 'badge-primary'
+
+    def create_stock_history(self, datetime):
+        StockHistory.objects.create(store=self, created_at=datetime)
+
+
+class StockHistory(models.Model):
+    store = models.ForeignKey(Store, related_name='stock_histories', on_delete=models.CASCADE)
+    created_at = models.DateTimeField()
+
+    class Meta:
+        ordering = ['-created_at']

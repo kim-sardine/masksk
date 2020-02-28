@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mask.stores.models import Store
+from mask.stores.models import Store, StockHistory
 
 
 def set_is_visible(self, request, queryset):
@@ -21,3 +21,8 @@ class StoreAdmin(admin.ModelAdmin):
     list_display = ("product_title", "crawling_type", "now_in_stock", "recent_in_stock_date", "is_visible", "modified_at", )
 
     actions = [set_is_visible, unset_is_visible, delete_recent_in_stock_date]
+
+
+@admin.register(StockHistory)
+class StockHistoryAdmin(admin.ModelAdmin):
+    list_display = ("store", "created_at",)

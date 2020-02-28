@@ -31,7 +31,9 @@ def update_mask_stock(store_id):
     else:
         store.now_in_stock = is_available
         if is_available is True:
-            store.recent_in_stock_date = timezone.now()
+            datetime_now = timezone.now()
+            store.recent_in_stock_date = datetime_now
+            store.create_stock_history(datetime_now)
     store.save()
     
     return f'{store} - {is_available}'
