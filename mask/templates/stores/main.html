@@ -35,9 +35,13 @@
         <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0.5rem;">
             재고 있음
         </div>
-        {% for store in now_in_stock_stores %}
-            {% include "stores/include/store_list_each.html" with store=store %}
-        {% endfor %}
+        {% if now_in_stock_stores %}
+            {% for store in now_in_stock_stores %}
+                {% include "stores/include/store_list_each.html" with store=store %}
+            {% endfor %}
+        {% else %}
+            <div class="text-center">현재 재고가 있는 상품이 없습니다.</div>
+        {% endif %}
     </div>
 
     <div class="">
