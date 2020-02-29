@@ -24,7 +24,6 @@ def main_view(request):
     context['stores'] = stores
 
     datetime_korea = timezone.localtime()
-    logger.info(f'datetime_korea : {datetime_korea}')
     if datetime_korea.hour > 22 or datetime_korea.hour < 8:
         context['is_closed_time'] = True
 
