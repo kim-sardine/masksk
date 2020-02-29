@@ -19,7 +19,8 @@ def main_view(request):
     stores = Store.objects.prefetch_related('stock_histories').filter(is_visible=True) \
         .order_by(
             '-now_in_stock', 
-            F('recent_in_stock_date').desc(nulls_last=True)
+            F('recent_in_stock_date').desc(nulls_last=True),
+            'mall_title',
         )
     context['stores'] = stores
 
