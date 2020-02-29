@@ -31,9 +31,10 @@ def welkeepsmall_all(soup):
 
 def kakao_store_1(soup):
     bottom_button = soup.find('div', class_='_bottom_buttons wrap_btn_detail')
-    bottom_text = bottom_button.text.strip()
-    if bottom_text == '구매하기':
-        return True
+    if bottom_button:
+        bottom_text = bottom_button.text.strip()
+        if bottom_text == '구매하기':
+            return True
     return False
 
 def bling_market_1(soup):
@@ -42,6 +43,21 @@ def bling_market_1(soup):
         return True
     return False
 
+def coupang_1(soup):
+    buying_button = soup.find('div', class_=['prod-buy', 'new-oos-style'])
+    if buying_button:
+        classes = buying_button.get('class')
+        if classes:
+            if 'sold-out' not in classes:
+                return True
+    return False
+
+def ssg_1(soup):
+    buying_button = soup.find('a', id='actionPayment')
+    print(buying_button)
+    if buying_button:
+        return True
+    return False
 
 
 # MAIN
