@@ -2,6 +2,14 @@
 
 {% block content %}
 
+{% if is_closed_time %}
+    <div class="alert alert-warning text-center mt-2" role="alert">
+        <p>지금은 실시간 업데이트 시간이 아닙니다.</p>
+        <hr>
+        <p class="mb-0">실시간 업데이트 : 아침 8시 ~ 저녁 10시</p>
+    </div>
+{% endif %}
+
 <div class="mt-4 text-center">
     <h6>마스크 재고 정보</h6>
     <h6>1분마다 업데이트</h6>
@@ -39,7 +47,7 @@
                     상품은 <1. 가성비, 2. 후기> 위주로 확인하고 있습니다.
                 </p>
                 <p>
-                    정보가 틀렸거나, 좋은 상품을 알고 계시다면 <a href="mailto:kim.sardine@gmail.com">kim.sardine@gmail.com</a> <- 이메일 보내주세요
+                    정보가 틀렸거나, 좋은 상품을 알고 계시다면 <a href="mailto:kim.sardine@gmail.com">kim.sardine@gmail.com</a> 로 이메일 보내주세요
                 </p>
             </div>
         </div>

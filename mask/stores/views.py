@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
-from django.db.models import F  
+from django.db.models import F
+from django.contrib import messages
 
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
@@ -21,6 +22,11 @@ def main_view(request):
             F('recent_in_stock_date').desc(nulls_last=True)
         )
     context['stores'] = stores
+
+    datetime_korea = timezone.localtime()
+    logger.info(f'datetime_korea : {datetime_korea}')
+    if datetime_korea.hour > 22 or datetime_korea.hour < 8:
+        context['is_closed_time'] = True
 
     return render(request, 'stores/main.html', context)
 
