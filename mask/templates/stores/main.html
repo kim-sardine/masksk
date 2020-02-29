@@ -22,8 +22,29 @@
 </div>
 
 <div class="col-lg-8 mx-auto my-4">
-    <div class="bg-white rounded box-shadow">
-        {% for store in stores %}
+    <div class="form-group mb-4">
+        <label class="my-1 mr-2" for="sort">정렬</label>
+        <select class="custom-select my-1 mr-sm-2" id="sort" onchange="location = this.value;">
+            {% for sort in sort_dict %}
+                <option value="{{sort.value}}" {{sort.selected}}>{{sort.title}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0.5rem;">
+            재고 있음
+        </div>
+        {% for store in now_in_stock_stores %}
+            {% include "stores/include/store_list_each.html" with store=store %}
+        {% endfor %}
+    </div>
+
+    <div class="">
+        <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 0.5rem;">
+            재고 없음
+        </div>
+        {% for store in not_in_stock_stores %}
             {% include "stores/include/store_list_each.html" with store=store %}
         {% endfor %}
     </div>

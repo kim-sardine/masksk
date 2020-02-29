@@ -2,14 +2,6 @@
 
 <div class="card mb-2 {{store.card_class}}">
     <div class="row no-gutters">
-        <div class="text-center w-100 p-2 {{store.alert_class}}">
-            {{store.now_in_stock_display}}
-            <small class="text-muted">
-                ( Update : {{store.modified_at|naturaltime}} )
-            </small>
-        </div>
-    </div>
-    <div class="row no-gutters">
         <div class="col-4">
             <div class="m-2">
                 <img src="{{store.image_url|default_if_none:"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}}" class="my-card-img" alt="이미지">
