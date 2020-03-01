@@ -81,6 +81,19 @@ class Store(TimeStampedModel):
     def create_stock_history(self, datetime):
         StockHistory.objects.create(store=self, created_at=datetime)
 
+    @classmethod
+    def get_new_now_in_stock_store(cls):
+        result = []
+
+        stores = cls.objects.filter(is_visible=True, now_in_stock=True)
+        for store in stores:
+            if store.stock_histories.count() >= 2:
+                stock_history = store.stock_histories.all()
+                time_diff = stock_history[0].created_at - stock_history[1].created_at
+                hours = time_diff.total_seconds() // 3600
+                if hours >= 2:  # 2시간 이상 재고가 없다가 재고가 들어오면 Hit
+                    result.append(store)
+        return result
 
 class StockHistory(models.Model):
     store = models.ForeignKey(Store, related_name='stock_histories', on_delete=models.CASCADE)
@@ -88,3 +101,7 @@ class StockHistory(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.store} ({self.created_at})'
+    

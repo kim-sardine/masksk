@@ -1,0 +1,17 @@
+{% load util_tags %}
+
+안녕하세요 "마스크스크" 입니다.<br>
+<br>
+마스크 재고 정보가 업데이트 되어 메일 드립니다.<br>
+<br>
+<br>
+[한국 시간 {% now "Y-m-d H:i" %} 기준 구매 가능 마스크]<br>
+{% for store in stores %}
+{{forloop.counter}}. <a href="{{store.product_url}}">{{store.product_title}}</a><br>
+{% endfor %}
+<br>
+감사합니다.<br>
+<br>
+<a href="{% current_domain %}{% url "home" %}" target="_blank">masksk.cc</a><br>
+<br>
+<a href="{% current_domain %}{% url "mailings:revoke" mailing.token %}" target="_blank">수신거부</a><br>

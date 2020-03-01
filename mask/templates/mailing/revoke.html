@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}이메일 수신 거부 - 마스크스크{% endblock %}
+
+
+{% block content %}
+
+
+<div class="col-lg-8 mx-auto my-4">
+    <div class="form-group">
+        <form class="form-inline" method="post">
+            {% csrf_token %}
+            <div class="form-group mr-2">
+                <label>정말 수신 거부 하시겠어요?</label>
+            </div>
+            <button type="submit" class="btn btn-primary">확인</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

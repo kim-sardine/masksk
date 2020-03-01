@@ -1,9 +1,14 @@
 import logging
 
+from django.conf import settings
 from django.utils import timezone
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
+from mask.mailings.models import Mailing
+
 from config import celery_app
 
 logger = logging.getLogger(__name__)
@@ -37,3 +42,31 @@ def update_mask_stock(store_id):
     store.save()
     
     return f'{store} - {is_available}'
+
+
+@celery_app.task()
+def send_mailing():
+
+    # 이전 X 시간 동안 재고가 없다가, 갑자기 재고가 생긴 store 를 찾는다.
+    stores = Store.get_new_now_in_stock_store()
+
+    # 해당 store 를 모아서 email 전송
+    mailings = Mailing.objects.all()
+    subject = '[마스크스크] 마스크 재고 알림'
+
+    for mailing in mailings:
+        email_data = {
+            'stores' : stores,
+            'mailing' : mailing
+        }
+        message = render_to_string('email/mailing_template.html', email_data)
+
+        _send_mailing.delay(subject, message, [mailing.email])
+        mailing.create_history(stores)
+
+
+@celery_app.task()
+def _send_mailing(subject, message, to):
+    email_message = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, to)
+    email_message.content_subtype = "html"  # Main content is now text/html
+    email_message.send()

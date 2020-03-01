@@ -20,3 +20,15 @@ def create_mailing(request):
                 messages.error(request, f'이미 존재하는 이메일입니다. : "{email}"')
 
     return redirect(reverse('home'))
+
+
+def revoke_mailing(request, token):
+    mailing = get_object_or_404(Mailing, token=token)
+
+    if request.method == 'GET':
+        return render(request, 'mailing/revoke.html')
+    elif request.method == 'POST':
+        mailing.delete()
+        messages.success(request, f'수신 거부가 완료되었습니다.')
+
+    return redirect(reverse('home'))
