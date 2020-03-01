@@ -17,6 +17,7 @@ urlpatterns = [
 
     path(settings.ADMIN_URL, admin.site.urls),
 
+    path("mailings/", include("mask.mailings.urls")),
     # path("stores/", include("mask.stores.urls")),
 
     # path(

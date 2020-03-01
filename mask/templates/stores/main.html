@@ -15,12 +15,6 @@
     <h6>1분마다 업데이트</h6>
 </div>
 
-<div class="mt-4 text-center">
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#mask_model">
-        유의사항
-    </button>
-</div>
-
 <div class="col-lg-8 mx-auto my-4">
     <div class="form-group mb-4">
         <label class="my-1 mr-2" for="sort">정렬</label>
@@ -51,31 +45,6 @@
         {% for store in not_in_stock_stores %}
             {% include "stores/include/store_list_each.html" with store=store %}
         {% endfor %}
-    </div>
-</div>
-
-
-<div class="modal fade" id="mask_model" tabindex="-1" role="dialog" aria-labelledby="mask_model_title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mask_model_title">유의사항</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    상품명, 가격, 사이즈, 마스크 종류와 같은 정보는 손으로 직접 입력하기 때문에 실제 정보와 다를 수 있습니다.
-                </p>
-                <p>
-                    상품은 <1. 가격(장당 1500원 이하), 2. 후기> 위주로 확인하고 있습니다.
-                </p>
-                <p>
-                    정보가 틀렸거나, 좋은 상품을 알고 계시다면 <a href="mailto:kim.sardine@gmail.com">kim.sardine@gmail.com</a> 로 이메일 보내주세요
-                </p>
-            </div>
-        </div>
     </div>
 </div>
 {% endblock content %}

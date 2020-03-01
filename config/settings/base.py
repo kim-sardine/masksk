@@ -75,8 +75,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "mask.users.apps.UsersConfig",
-    "mask.stores.apps.StoresConfig",
     "mask.core.apps.CoreConfig",
+    "mask.stores.apps.StoresConfig",
+    "mask.mailings.apps.MailingsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
