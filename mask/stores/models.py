@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from mask.core.models import TimeStampedModel
 
@@ -88,7 +89,10 @@ class Store(TimeStampedModel):
         stores = cls.objects.filter(is_visible=True, now_in_stock=True)
         for store in stores:
             if store.stock_histories.count() == 1:
-                result.append(store)
+                stock_history = store.stock_histories.all()
+                time_diff = timezone.now() - stock_history[0].created_at
+                if minutes < 1:  # 방금 처음 들어온 재고일 때 Hit
+                    result.append(store)
             elif store.stock_histories.count() >= 2:
                 stock_history = store.stock_histories.all()
                 time_diff = stock_history[0].created_at - stock_history[1].created_at
