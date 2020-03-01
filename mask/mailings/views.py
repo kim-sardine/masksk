@@ -15,7 +15,7 @@ def create_mailing(request):
                     email=email,
                     token=token,
                 )
-                messages.success(request, f'신청 완료. 이메일 : "{email}"')
+                messages.success(request, f'신청 완료되었습니다. 이메일 : "{email}"')
             else:
                 messages.error(request, f'이미 존재하는 이메일입니다. : "{email}"')
 
@@ -29,6 +29,6 @@ def revoke_mailing(request, token):
         return render(request, 'mailing/revoke.html')
     elif request.method == 'POST':
         mailing.delete()
-        messages.success(request, f'수신 거부가 완료되었습니다.')
+        messages.success(request, '수신 거부가 완료되었습니다.')
 
     return redirect(reverse('home'))

@@ -87,7 +87,9 @@ class Store(TimeStampedModel):
 
         stores = cls.objects.filter(is_visible=True, now_in_stock=True)
         for store in stores:
-            if store.stock_histories.count() >= 2:
+            if store.stock_histories.count() == 1:
+                result.append(store)
+            elif store.stock_histories.count() >= 2:
                 stock_history = store.stock_histories.all()
                 time_diff = stock_history[0].created_at - stock_history[1].created_at
                 hours = time_diff.total_seconds() // 3600

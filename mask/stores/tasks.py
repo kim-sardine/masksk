@@ -52,7 +52,7 @@ def send_mailing():
 
     # 해당 store 를 모아서 email 전송
     mailings = Mailing.objects.all()
-    subject = '[마스크스크] 마스크 재고 알림'
+    subject = '[마스크스크] 마스크 입고 알림'
 
     for mailing in mailings:
         email_data = {
