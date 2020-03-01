@@ -49,20 +49,20 @@ def send_mailing():
 
     # 이전 X 시간 동안 재고가 없다가, 갑자기 재고가 생긴 store 를 찾는다.
     stores = Store.get_new_now_in_stock_store()
-
     # 해당 store 를 모아서 email 전송
-    mailings = Mailing.objects.all()
-    subject = '[마스크스크] 마스크 입고 알림'
+    if stores:
+        mailings = Mailing.objects.all()
+        subject = '[마스크스크] 마스크 입고 알림'
 
-    for mailing in mailings:
-        email_data = {
-            'stores' : stores,
-            'mailing' : mailing
-        }
-        message = render_to_string('email/mailing_template.html', email_data)
+        for mailing in mailings:
+            email_data = {
+                'stores' : stores,
+                'mailing' : mailing
+            }
+            message = render_to_string('email/mailing_template.html', email_data)
 
-        _send_mailing.delay(subject, message, [mailing.email])
-        mailing.create_history(stores)
+            _send_mailing.delay(subject, message, [mailing.email])
+            mailing.create_history(stores)
 
 
 @celery_app.task()
