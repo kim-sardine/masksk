@@ -3,10 +3,12 @@
 {% block content %}
 
 {% if is_closed_time %}
-    <div class="alert alert-warning text-center mt-2" role="alert">
-        <p>지금은 실시간 업데이트 시간이 아닙니다.</p>
-        <hr>
-        <p class="mb-0">실시간 업데이트 : 아침 8시 ~ 저녁 10시</p>
+    <div class="col-lg-8 mx-auto">
+        <div class="alert alert-warning text-center mt-2" role="alert">
+            <p>지금은 실시간 업데이트 시간이 아닙니다.</p>
+            <hr>
+            <p class="mb-0">실시간 업데이트 : 아침 8시 ~ 저녁 10시</p>
+        </div>
     </div>
 {% endif %}
 

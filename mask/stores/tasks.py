@@ -68,5 +68,5 @@ def send_mailing():
 @celery_app.task()
 def _send_mailing(subject, message, to):
     email_message = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, to)
-    email_message.content_subtype = "html"  # Main content is now text/html
+    email_message.content_subtype = "html"
     email_message.send()

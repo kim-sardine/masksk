@@ -1,7 +1,7 @@
 from django.utils import timezone
-from factory import DjangoModelFactory, Faker, fuzzy
+from factory import DjangoModelFactory, Faker, fuzzy, SubFactory
 
-from mask.stores.models import Store
+from mask.stores.models import Store, StockHistory
 
 
 class StoreFactory(DjangoModelFactory):
@@ -24,3 +24,12 @@ class StoreFactory(DjangoModelFactory):
 
     class Meta:
         model = Store
+
+
+class StockHistoryFactory(DjangoModelFactory):
+
+    store = SubFactory(StoreFactory)
+    created_at = Faker("date_time_this_month", tzinfo=timezone.utc)
+    
+    class Meta:
+        model = StockHistory

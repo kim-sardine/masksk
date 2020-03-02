@@ -3,8 +3,8 @@ from django.test import RequestFactory
 
 from mask.users.models import User
 from mask.users.tests.factories import UserFactory
-from mask.stores.models import Store
-from mask.stores.tests.factories import StoreFactory
+from mask.stores.models import Store, StockHistory
+from mask.stores.tests.factories import StoreFactory, StockHistoryFactory
 
 @pytest.fixture(autouse=True)
 def media_storage(settings, tmpdir):
@@ -24,3 +24,8 @@ def request_factory() -> RequestFactory:
 @pytest.fixture
 def store() -> Store:
     return StoreFactory()
+
+
+@pytest.fixture
+def stock_history() -> StockHistory:
+    return StockHistoryFactory()

@@ -91,6 +91,7 @@ class Store(TimeStampedModel):
             if store.stock_histories.count() == 1:
                 stock_history = store.stock_histories.all()
                 time_diff = timezone.now() - stock_history[0].created_at
+                minutes = time_diff.total_seconds() / 60
                 if minutes < 1:  # 방금 처음 들어온 재고일 때 Hit
                     result.append(store)
             elif store.stock_histories.count() >= 2:
