@@ -41,14 +41,19 @@ class TestStockHistoryModel:
 
         datetime_now = timezone.now()
         datetime_before_3_hours = datetime_now - timezone.timedelta(hours=3)
-        datetime_before_3_hours_1min = datetime_now - timezone.timedelta(hours=3, minutes=1)
+        datetime_before_3_hours_1_min = datetime_now - timezone.timedelta(hours=3, minutes=1)
         StockHistoryFactory.create(store=store, created_at=datetime_before_3_hours)
-        StockHistoryFactory.create(store=store, created_at=datetime_before_3_hours_1min)
+        StockHistoryFactory.create(store=store, created_at=datetime_before_3_hours_1_min)
 
         stores = Store.get_new_now_in_stock_store()
         assert len(stores) == 0
 
-        StockHistoryFactory.create(store=store, created_at=datetime_now)
-
+        datetime_before_30_secondss = datetime_now - timezone.timedelta(seconds=30)
+        StockHistoryFactory.create(store=store, created_at=datetime_before_30_secondss)
         stores = Store.get_new_now_in_stock_store()
         assert len(stores) == 1
+
+        StockHistoryFactory.create(store=store, created_at=datetime_now)
+        stores = Store.get_new_now_in_stock_store()
+        assert len(stores) == 0
+
