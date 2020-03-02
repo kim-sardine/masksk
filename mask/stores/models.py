@@ -86,20 +86,22 @@ class Store(TimeStampedModel):
     def get_new_now_in_stock_store(cls):
         result = []
 
-        stores = cls.objects.filter(is_visible=True, now_in_stock=True)
+        stores = cls.objects.prefetch_related('stock_histories').filter(is_visible=True, now_in_stock=True)
         for store in stores:
-            if store.stock_histories.count() == 1:
-                stock_history = store.stock_histories.all()
-                time_diff = timezone.now() - stock_history[0].created_at
-                minutes = time_diff.total_seconds() / 60
-                if minutes < 1:  # 방금 처음 들어온 재고일 때 Hit
-                    result.append(store)
-            elif store.stock_histories.count() >= 2:
-                stock_history = store.stock_histories.all()
-                time_diff = stock_history[0].created_at - stock_history[1].created_at
-                hours = time_diff.total_seconds() // 3600
-                if hours >= 2:  # 2시간 이상 재고가 없다가 재고가 들어오면 Hit
-                    result.append(store)
+            try:  # TODO: 함수로 묶기
+                if store.stock_histories.exists():
+                    time_diff = timezone.now() - store.stock_histories.first().created_at  # 방금 재고가 들어왔는지 검사
+                    if time_diff.total_seconds() < 60:  # 방금 들어온 재고만 본다
+                        if store.stock_histories.count() == 1:  # 처음 들어온 재고일 때 -> Hit
+                            result.append(store)
+                        else:  # 재고 기록이 다수일 때
+                            stock_history = store.stock_histories.all()
+                            time_diff = stock_history[0].created_at - stock_history[1].created_at  # 최근 두 재고 기록 비교
+                            hours = time_diff.total_seconds() // 3600
+                            if hours >= 2:  # 2시간 이상 재고가 없다가 재고가 들어오면 -> Hit
+                                result.append(store)
+            except:  # TODO: Logging
+                continue
         return result
 
 class StockHistory(models.Model):

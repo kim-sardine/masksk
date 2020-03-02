@@ -63,6 +63,8 @@ def send_mailing():
 
             _send_mailing.delay(subject, message, [mailing.email])
             mailing.create_history(stores)
+        
+        return f'Send {len(mailings)} emails'
 
 
 @celery_app.task()
