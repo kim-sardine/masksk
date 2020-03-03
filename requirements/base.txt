@@ -20,3 +20,4 @@ django-redis==4.11.0  # https://github.com/niwinz/django-redis
 djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework
 
 beautifulsoup4==4.8.2
+factory-boy==2.12.0  # https://github.com/FactoryBoy/factory_boy
