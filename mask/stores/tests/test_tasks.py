@@ -22,9 +22,10 @@ def test_tasks(settings):
     ]
 
     for test_set in test_sets:
-        store = StoreFactory(crawling_type=test_set['crawling_type'])
-        store.product_url = test_set['product_url']
-        store.save()
+        store = StoreFactory(
+            crawling_type=test_set['crawling_type'],
+            product_url=test_set['product_url']
+        )
         assert store.now_in_stock == False
         assert store.recent_in_stock_date is None
 
