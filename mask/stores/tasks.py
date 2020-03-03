@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 
+from mask.core.exceptions import RequestsException
 from mask.stores.crawler import is_mask_available
 from mask.stores.models import Store
 from mask.mailings.models import Mailing
@@ -30,6 +31,9 @@ def update_mask_stock(store_id):
     is_available = False
     try:
         is_available = is_mask_available(store)
+    except RequestsException as e:
+        logger.error(f'[RequestsException] - {store} : {e}')
+        store.now_in_stock = False
     except Exception as e:
         logger.exception(f'[Crawling] : {store}')
         store.now_in_stock = False

@@ -1,10 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
 
+from mask.core.exceptions import RequestsException
+
 HEADER = {'User-Agent': 'Mozilla/5.0'}
 
+
 def _get_soup(url):
-    response = requests.get(url, headers=HEADER, timeout=5)
+    try:
+        response = requests.get(url, headers=HEADER, timeout=5)
+    except Exception as e:
+        raise RequestsException(e)
+
     return BeautifulSoup(response.text, "html.parser")
 
 def naver_smart_store_1(soup):
@@ -54,7 +61,6 @@ def coupang_1(soup):
 
 def ssg_1(soup):
     buying_button = soup.find('a', id='actionPayment')
-    print(buying_button)
     if buying_button:
         return True
     return False
