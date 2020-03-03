@@ -32,10 +32,10 @@ def update_mask_stock(store_id):
     try:
         is_available = is_mask_available(store)
     except RequestsException as e:
-        logger.error(f'[RequestsException] - {store} : {e}')
+        logger.info(f'[RequestsException] - {store} : {e}')
         store.now_in_stock = False
     except Exception as e:
-        logger.exception(f'[Crawling] : {store}')
+        logger.error(f'[Crawling] : {store}')
         store.now_in_stock = False
     else:
         store.now_in_stock = is_available
