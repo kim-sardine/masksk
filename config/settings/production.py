@@ -190,7 +190,7 @@ LOGGING = {
             "propagate": False,
         },
         # Errors logged by the SDK itself
-        "sentry_sdk": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "sentry_sdk": {"level": "ERROR", "handlers": ["console"], "propagate": True},
         "django.security.DisallowedHost": {
             "level": "ERROR",
             "handlers": ["console"],
