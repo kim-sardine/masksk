@@ -2,25 +2,14 @@ import requests
 import random
 from bs4 import BeautifulSoup
 
+from factory import Faker
 
 from mask.core.exceptions import RequestsException
-
-USER_AGENT = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14931'
-]
 
 
 def _get_soup(url):
     try:
-        response = requests.get(
-            url,
-            headers={
-                'User-Agent': random.choice(USER_AGENT)
-            },
-            timeout=10
-        )
+        response = requests.get(url, headers = {'User-Agent': Faker('user_agent').generate()}, timeout = 10)
     except Exception as e:
         raise RequestsException(e)
 
