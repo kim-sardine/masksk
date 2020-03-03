@@ -3,11 +3,10 @@
 {% block title %}Server Error{% endblock %}
 
 {% block content %}
-<h1>Ooops!!! 500</h1>
-
-<h3>Looks like something went wrong!</h3>
-
-<p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
+<div class="d-flex justify-content-center align-items-center" id="main" style="min-height:75vh;">
+    <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">500</h1>
+    <div class="inline-block align-middle">
+    	<h2 class="font-weight-normal lead" id="desc">에러가 발생했습니다.<br>빠른 시일내에 고치겠습니다.<br>문제가 계속 발생한다면 메일을 보내주시면 감사하겠습니다.</h2>
+    </div>
+</div>
 {% endblock content %}
-
-
