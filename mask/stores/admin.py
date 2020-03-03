@@ -21,7 +21,7 @@ delete_stock_history.short_description = '최근 재고 시간 및 재고 기록
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ("product_title", "crawling_type", "now_in_stock", "is_visible", "price", "recent_in_stock_date", "modified_at", )
+    list_display = ("id", "product_title", "crawling_type", "now_in_stock", "is_visible", "price", "recent_in_stock_date", "modified_at", )
 
     actions = [set_is_visible, unset_is_visible, delete_stock_history]
 
