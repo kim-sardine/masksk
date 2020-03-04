@@ -70,8 +70,7 @@ http:
         scheme: https
         permanent: true
     redirect-none-www:
-      # https://docs.traefik.io/master/middlewares/redirectscheme/
-      redirectScheme:
+      redirectRegex:
         regex: "^https://www\.(.+)"
         replacement: "https://${1}"
         permanent: true
