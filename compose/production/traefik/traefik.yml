@@ -71,7 +71,7 @@ http:
         permanent: true
     redirect-none-www:
       redirectRegex:
-        regex: "^https://www\.(.+)"
+        regex: "^https://www\\.(.+)"
         replacement: "https://${1}"
         permanent: true
     csrf:
