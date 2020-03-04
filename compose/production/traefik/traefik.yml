@@ -34,17 +34,8 @@ http:
         - csrf
       service: django
 
-    www-web-secure-router:
-      rule: "Host(`www.masksk.cc`)"
-      entryPoints:
-        - web-secure
-      middlewares:
-        - redirect-none-www
-        - csrf
-      service: django
-
     web-secure-router:
-      rule: "Host(`masksk.cc`)"
+      rule: "Host(`masksk.cc`) || Host(`www.masksk.cc`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -68,11 +59,6 @@ http:
       # https://docs.traefik.io/master/middlewares/redirectscheme/
       redirectScheme:
         scheme: https
-        permanent: true
-    redirect-none-www:
-      redirectRegex:
-        regex: "^https://www\\.(.+)"
-        replacement: "https://${1}"
         permanent: true
     csrf:
       # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
