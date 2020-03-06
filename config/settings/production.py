@@ -154,10 +154,6 @@ INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
 
 # LOGGING
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#logging
-# See https://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
@@ -212,6 +208,3 @@ sentry_sdk.init(
     dsn=SENTRY_DSN,
     integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
 )
-
-# Your stuff...
-# ------------------------------------------------------------------------------
